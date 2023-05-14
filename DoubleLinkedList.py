@@ -167,15 +167,3 @@ class DoublyLinkedList:
                 return False
             current = current.next
         return True
-        
-    
-        
-my_doubly_linked_list = DoublyLinkedList(7)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(4)
-my_doubly_linked_list.append(7)
-
-
-print(my_doubly_linked_list.is_palindrome())
