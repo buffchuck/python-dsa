@@ -28,9 +28,9 @@ class DoublyLinkedList:
             self.tail.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
-        self.length+=1
+        self.length += 1
         return True
-    
+
     def pop(self):
         if self.length == 0:
             return None
@@ -42,9 +42,9 @@ class DoublyLinkedList:
             self.tail = self.tail.prev
             self.tail.next = None
             temp.prev = None
-        self.length-=1
+        self.length -= 1
         return temp
-    
+
     def prepend(self, value):
         if self.length == 0:
             self.append(value)
@@ -53,8 +53,8 @@ class DoublyLinkedList:
             self.head.prev = new_node
             new_node.next = self.head
             self.head = new_node
-        self.length+=1
-        return True 
+        self.length += 1
+        return True
 
     def pop_first(self):
         if self.length == 0:
@@ -67,20 +67,20 @@ class DoublyLinkedList:
             self.head = self.head.next
             self.head.prev = None
             temp.next = None
-        self.length-=1
+        self.length -= 1
         return temp
-            
+
     def get(self, index):
         if index < 0 or index >= self.length:
             return None
-        if index < self.length/2:
-            temp=self.head
+        if index < self.length / 2:
+            temp = self.head
             for _ in range(index):
-                temp=temp.next
-        else: 
-            temp=self.tail     
-            for _ in range((self.length-index)-1):
-                temp=temp.prev
+                temp = temp.next
+        else:
+            temp = self.tail
+            for _ in range((self.length - index) - 1):
+                temp = temp.prev
         return temp
 
     def set_value(self, index, value):
@@ -91,7 +91,7 @@ class DoublyLinkedList:
             temp.value = value
             return True
         return False
-    
+
     def insert(self, index, value):
         if self.length == 0:
             return False
@@ -106,9 +106,9 @@ class DoublyLinkedList:
             temp.prev.next = new_node
             new_node.prev = temp.prev
             temp.prev = new_node
-        self.length+=1
+        self.length += 1
         return True
-            
+
     def remove(self, index):
         if self.length == 0:
             return None
@@ -122,9 +122,9 @@ class DoublyLinkedList:
             temp.next.prev = temp.prev
             temp.next = None
             temp.prev = None
-        self.length-=1
-        return temp    
-    
+        self.length -= 1
+        return temp
+
     def swap_first_last(self):
         if self.length == 0:
             return False
@@ -145,12 +145,12 @@ class DoublyLinkedList:
             temp = current_node.next
             current_node.next = current_node.prev
             current_node.prev = temp
-            current_node = current_node.prev # This tripped me up for a while
+            current_node = current_node.prev  # This tripped me up for a while
         temp = self.tail
         self.tail = self.head
         self.head = temp
         return True
-            
+
     def is_palindrome(self):
         if self.length == 0:
             return False
@@ -167,3 +167,31 @@ class DoublyLinkedList:
                 return False
             current = current.next
         return True
+
+    def swap_pairs(self):
+        if self.length <= 1:
+            return self
+        dummy = Node(0)
+        dummy.next = self.head
+        prev = dummy
+        self.head.previous = dummy
+
+        while self.head and self.head.next:
+            first_node = self.head
+            second_node = self.head.next
+
+            prev.next = second_node
+            first_node.next = second_node.next
+            second_node.next = first_node
+
+            second_node.prev = prev
+            first_node.prev = second_node
+            if first_node.next:
+                first_node.next.prev = first_node
+
+            self.head = first_node.next
+            prev = first_node
+
+        self.head = dummy.next
+        if self.head:
+            self.head.prev = None
